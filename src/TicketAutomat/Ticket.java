@@ -4,26 +4,34 @@ import java.util.Random;
 
 public class Ticket {
     private int id;
-    private long ticketTimeStamp;
+    private long createdTimestamp;
     private long paidTimeStamp;
+    private boolean isPayed = false;
+    private Random random = new Random();
 
-    Random random = new Random();
-
-    public Ticket(int id, long ticketTimeStamp, long paidTimeStamp) {
-        this.id = id;
-        this.ticketTimeStamp = ticketTimeStamp;
-        this.paidTimeStamp = paidTimeStamp;
+    public Ticket() {
+        this.id = random.nextInt();
+        this.createdTimestamp = System.currentTimeMillis();
+        this.paidTimeStamp = -1;
     }
 
-    public int getId() {
-        return id;
-    }
+  public long getCreatedTimestamp() {
+      return createdTimestamp;
+  }
 
-    public long getPaidTimeStamp() {
-        return paidTimeStamp;
-    }
+  public int getId() {
+      return id;
+  }
 
-    public long getTicketTimeStamp() {
-        return ticketTimeStamp;
-    }
+  public long getPaidTimeStamp() {
+      return paidTimeStamp;
+  }
+
+  public void setPaidTimeStamp(long paidTimeStamp) {
+      this.paidTimeStamp = paidTimeStamp;
+  }
+
+  public String toString(){
+    return "ID" + id + "PayedTimestamp" + paidTimeStamp + "Created Ticket";
+  }
 }
