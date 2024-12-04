@@ -1,39 +1,74 @@
 package DataGeneratorAlgo;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class DataGeneratorTest {
-    @Test
-    void testGenerateDatArry() {
-        Assertions.assertEquals(true, true);
+      @Test
+    void generateArray_ShouldCreateArrayWithCorrectSize() {
+        // given
+        int size = 5;
+
+        // when
+        int[] result = DataGenerator.generateArray(size);
+
+        // then
+        assertEquals(size, result.length);
     }
 
     @Test
-    void test2() {
-        int size = 6;
-        int[] data = DataGenerator.generateDatArry(size);
+    void generateArray_ShouldCreateDifferentArraysOnMultipleCalls() {
+        // given
+        int size = 10;
 
-        boolean allTheSame = true;
+        // when
+        int[] firstArray = DataGenerator.generateArray(size);
+        int[] secondArray = DataGenerator.generateArray(size);
 
-        for (int value : data) {
-            if (value != 0) {
-                allTheSame = false;
+        // then
+        boolean allElementsEqual = true;
+        for (int i = 0; i < size; i++) {
+            if (firstArray[i] != secondArray[i]) {
+                allElementsEqual = false;
                 break;
             }
         }
-        Assertions.assertFalse(allTheSame, "all numbers are the same");
+        assertFalse(allElementsEqual, "Arrays should contain different values");
     }
 
     @Test
-    void printNumbers() {
-        int size = 10;
-        int[] data = DataGenerator.generateDatArry(size);
+    void generateArrayInRange_ShouldCreateArrayWithCorrectSize() {
+        // given
+        int size = 5;
+        int min = 1;
+        int max = 10;
 
-        System.out.println("Generated numbers:");
-        for (int i = 0; i < data.length; i++) {
-            System.out.println("data[" + i + "] = " + data[i]);
+        // when
+        int[] result = DataGenerator.generateArrayInRange(size, min, max);
+
+        // then
+        assertEquals(size, result.length);
+    }
+
+    @Test
+    void generateArrayInRange_ShouldCreateArrayWithValuesInRange() {
+        // given
+        int size = 100; // larger size for better testing
+        int min = 5;
+        int max = 15;
+
+        // when
+        int[] result = DataGenerator.generateArrayInRange(size, min, max);
+
+        // then
+        for (int value : result) {
+            assertTrue(value >= min && value <= max,
+                    "Value " + value + " is outside the range [" + min + ", " + max + "]");
         }
-
     }
 }
+
